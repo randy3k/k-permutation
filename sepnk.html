@@ -1,0 +1,1107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0038)file:///Users/Randy/Desktop/sepnk.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head profile="http://gmpg.org/xfn/11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="file://cdn.api.twitter.com/1/urls/count.json?callback=WPCOMSharing.update_twitter_count&url=https%3A%2F%2Falistairisrael.wordpress.com%2F2009%2F09%2F22%2Fsimple-efficient-pnk-algorithm%2F&_=1429239690918"></script><script async="" src="file://cdn.api.twitter.com/1/urls/count.json?callback=WPCOMSharing.update_twitter_count&url=http%3A%2F%2Falistairisrael.wordpress.com%2F2009%2F09%2F22%2Fsimple-efficient-pnk-algorithm%2F&_=1429239690917"></script>
+
+<title>A Simple, Efficient P(n,k) Algorithm | Alistair Israel</title>
+<link rel="pingback" href="https://alistairisrael.wordpress.com/xmlrpc.php">
+<link rel="alternate" type="application/rss+xml" title="Alistair Israel » Feed" href="https://alistairisrael.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Alistair Israel » Comments Feed" href="https://alistairisrael.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Alistair Israel » A Simple, Efficient P(n,k) Algorithm Comments Feed" href="https://alistairisrael.wordpress.com/2009/09/22/simple-efficient-pnk-algorithm/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="file:///Users/Randy/Desktop/sepnk2_files/saved_resource" type="text/css" media="all">
+<link rel="stylesheet" id="print-css-0" href="file:///Users/Randy/Desktop/sepnk2_files/global-print.css" type="text/css" media="print">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="file:///Users/Randy/Desktop/sepnk2_files/saved_resource(1)"></script>
+<link rel="stylesheet" id="all-css-0" href="file:///Users/Randy/Desktop/sepnk2_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://alistairisrael.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Functional HTTP testing revisited using JUnit 4.7 Interceptors" href="https://alistairisrael.wordpress.com/2009/09/03/functional-http-testing-revisited-using-junit-interceptors/">
+<link rel="next" title="Steam on Mac, case-sensitive workaround" href="https://alistairisrael.wordpress.com/2010/05/13/steam-on-mac-case-sensitive-workaround/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="file:///Users/Randy/Desktop/sepnk_files/sepnk.html">
+<link rel="shortlink" href="http://wp.me/p2q8w-3P">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&url=https%3A%2F%2Falistairisrael.wordpress.com%2F2009%2F09%2F22%2Fsimple-efficient-pnk-algorithm%2F&for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&url=https%3A%2F%2Falistairisrael.wordpress.com%2F2009%2F09%2F22%2Fsimple-efficient-pnk-algorithm%2F&for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Simple, Efficient P(n,k) Algorithm">
+<meta property="og:url" content="https://alistairisrael.wordpress.com/2009/09/22/simple-efficient-pnk-algorithm/">
+<meta property="og:description" content="Drawing heavily from “SEPA: A
+Simple, Efficient Permutation Algorithm” by Jeffrey A. Johnson, this article adapts and refines Johnson&#39;s algorithm to generate all permutations of nitems taken k at ...">
+<meta property="article:published_time" content="2009-09-22T15:00:14+00:00">
+<meta property="article:modified_time" content="2014-11-14T10:31:15+00:00">
+<meta property="article:author" content="https://alistairisrael.wordpress.com/author/aisrael/">
+<meta property="og:site_name" content="Alistair Israel">
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:card" content="summary">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://alistairisrael.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://alistairisrael.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://alistairisrael.wordpress.com/osd.xml" title="Alistair Israel">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com">
+<style type="text/css">
+.widget_twitter li {
+	word-wrap: break-word;
+}
+</style>
+<meta name="application-name" content="Alistair Israel"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="Just another developer blog."><meta name="msapplication-task" content="name=Subscribe;action-uri=https://alistairisrael.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="A Simple, Efficient P(n,k) Algorithm | Alistair Israel on WordPress.com">
+<meta name="description" content="Drawing heavily from “SEPA: A Simple, Efficient Permutation Algorithm” by Jeffrey A. Johnson, this article adapts and refines Johnson&#39;s algorithm to generate all permutations of nitems taken k at a time, in lexicographic order.">
+
+<script type="text/javascript" src="file:///Users/Randy/Desktop/sepnk2_files/google_service.js">
+</script>
+<script type="text/javascript">
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script><script src="file:///Users/Randy/Desktop/sepnk2_files/google_ads.js"></script><script src="file:///Users/Randy/Desktop/sepnk2_files/google_ads(1).js"></script>
+<script type="text/javascript" src="file:///Users/Randy/Desktop/sepnk2_files/amzn_ads.js"></script>
+<script type="text/javascript">
+try { amznads.getAds("3033","300x250"); } catch(e) { /* ignore */ }
+</script><script type="text/javascript" src="file:///Users/Randy/Desktop/sepnk2_files/bid"></script><script type="text/javascript" src="file:///Users/Randy/Desktop/sepnk2_files/bid(1)"></script>
+<script type="text/javascript">
+var amznKeys = amznads.getKeys();
+if (typeof amznKeys != "undefined" && amznKeys != "") { for (var i =0; i < amznKeys.length; i++) { var key = amznKeys[i]; GA_googleAddAttr("amzn", key);} }
+document.close();
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post"); }
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 577128, pt: 'permalink', wa: 0, as: 0, domain: 'alistairisrael.wordpress.com', url: 'https://alistairisrael.wordpress.com/2009/09/22/simple-efficient-pnk-algorithm/', gid: '', };
+</script>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script type="text/javascript" async="" src="./a_files/ga.js"></script><script type="text/javascript" async="" src="file:///Users/Randy/Desktop/sepnk2_files/ga.js"></script><script type="text/javascript" async="" src="file:///Users/Randy/Desktop/sepnk2_files/ga(1).js"></script>
+<script type="text/javascript" src="file:///Users/Randy/Desktop/sepnk2_files/osd.js"></script><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="file:///Users/Randy/Desktop/sepnk2_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="file:///Users/Randy/Desktop/sepnk2_files/services.css"><script type="text/javascript" async="" src="file:///Users/Randy/Desktop/sepnk2_files/saved_resource(2)"></script><script type="text/javascript" src="file:///Users/Randy/Desktop/sepnk2_files/osd(1).js"></script><script type="text/javascript" async="" src="file://r.skimresources.com/api/?callback=skimlinksApplyHandlers&data=%7B%22pubcode%22%3A%22725X1342%22%2C%22domains%22%3A%5B%22freewebs.com%22%2C%22en.wikipedia.org%22%2C%22github.com%22%2C%22wiki.github.com%22%2C%22alistairisrael.files.wordpress.com%22%2C%22wordpress.com%22%2C%22andrewduncan.ws%22%2C%22plus.google.com%22%2C%22gravatar.com%22%2C%22twitter.com%22%2C%22instagram.com%22%2C%22macheist.com%22%2C%22t.co%22%2C%22daveq.wordpress.com%22%2C%22calenlegaspi.blogspot.com%22%2C%22wordpress.org%22%2C%22macports.org%22%2C%22quickhighlighter.com%22%2C%22en.wordpress.com%22%2C%22pixel.wp.com%22%5D%2C%22page%22%3A%22file%3A%2F%2F%2FUsers%2FRandy%2FDesktop%2Fsepnk.html%22%7D"></script></head>
+<body class="single single-post postid-237 single-format-standard mp6 customizer-styles-applied highlander-enabled highlander-light" data-twttr-rendered="true">
+
+<div id="wrap">
+	<div id="header">
+		<h1><a href="https://alistairisrael.wordpress.com/" sl-processed="1">Alistair Israel</a></h1>
+		<p class="description">Just another developer blog.</p>
+			</div><!-- / #header -->
+
+	<div id="content">
+								<div class="post-237 post type-post status-publish format-standard hentry category-java category-software-development tag-algorithms tag-java tag-permutations entry entry-1" id="post-237">
+	<div class="entrytitle">
+		<h2>
+					A Simple, Efficient P(n,k)&nbsp;Algorithm				</h2>
+		<h3>September 22, 2009</h3>
+	</div>
+	<div class="entrybody">
+		<p>Jeffrey A. Johnson’s <a href="http://www.freewebs.com/permute/soda_submit.html" sl-processed="1">SEPA: A Simple, Efficient Permutation Algorithm</a> is indeed a fast and simple way to generate all the permutations of <i>n</i> items or P(<i>n</i>) in lexicographic order. In this article, I describe a similar algorithm for generating partial permutations of <i>n</i> items taken <i>k</i> at a time, which we denote as P(<i>n</i>, <i>k</i>).</p>
+<h2><a name="_SEPA_Explained"></a>SEPA Explained</h2>
+<p>Johnson discovered that a set of logical steps could be taken from one permutation to the next. Repeatedly calling the algorithm on the last output obtained generates all permutations in sorted order.</p>
+<p>It works by first scanning for the rightmost <a href="http://en.wikipedia.org/wiki/Permutation#Ascents.2C_descents_and_runs" sl-processed="1">ascent</a> or pair of numbers where the first number is less than the one immediately after it.</p>
+<table style="border:1px solid;border-collapse:collapse;" cellspacing="0" cellpadding="0">
+<caption>Table 1: P(5)<sub>17..24</sub> with rightmost ascents highlighted.</caption>
+<colgroup><col width="66">
+<col width="44">
+<col width="44">
+<col width="44">
+<col width="44">
+<col width="44">
+</colgroup><tbody><tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;"><i>P<sub>i</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>0</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>1</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>2</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>3</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">⋮</td>
+<td colspan="5" style="text-align:center;width:5cm;">⋮</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">17</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">18</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">19</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">20</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">21</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">22</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">2</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">23</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">24</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">⋮</td>
+<td colspan="5" style="border:1px solid;text-align:center;width:1cm;padding:4px;">⋮</td>
+</tr>
+</tbody></table>
+<p>If no ascent is found, then all numbers are in descending order and this is the last, lexicographic permutation.</p>
+<p>Otherwise, the number at the start of the ascent is swapped with the smallest higher number to its right.</p>
+<table style="border:1px solid;border-collapse:collapse;" cellspacing="0" cellpadding="0">
+<caption>Table 2: P'(5)<sub>17..24</sub> after swaps (in red). Highlighted cells are about to be reversed.</caption>
+<colgroup><col width="66">
+<col width="44">
+<col width="44">
+<col width="44">
+<col width="44">
+<col width="44">
+</colgroup><tbody><tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;"><i>P’<sub>i</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>0</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>1</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>2</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>3</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">⋮</td>
+<td colspan="5" style="border:1px solid;text-align:center;width:1cm;padding:4px;">⋮</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">17′</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">4</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">18′</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">19′</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;"><span style="color:red;">1</span></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">20′</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">1</span></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">21′</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">22′</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">1</span></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">23′</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">1</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;"><span style="color:red;">0</span></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">24′</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">4</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">⋮</td>
+<td colspan="5" style="border:1px solid;text-align:center;width:1cm;padding:4px;">⋮</td>
+</tr>
+</tbody></table>
+<p>Finally, all the numbers to the right (which will be in descending order) are ‘flipped’ or reversed (to ascending order). The resulting array is the next permutation.</p>
+<h2><a name="_P_n__to_P_n_k_"></a>P(n) to P(n,k)</h2>
+<p>To begin generating P(n,k), let’s take a look at the first few permutations of 5 elements taken 3 at a time, P(5,3) and compare this with P(5):</p>
+<p><span id="more-237"></span></p>
+<table style="border:1px solid;border-collapse:collapse;" cellspacing="0" cellpadding="0">
+<caption>Table 3: P(5, 3)<sub>0…5</sub></caption>
+<colgroup><col width="66">
+<col width="44">
+<col width="44">
+<col width="44">
+</colgroup><tbody><tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i></i>P<sub>i</sub></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>0</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>1</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>2</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">5</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">⋮</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;" colspan="3">⋮</td>
+</tr>
+</tbody></table>
+<p>If we look carefully at the first 3 values of P(5), <i>a<sub>0</sub></i>, <i>a<sub>1</sub></i> and <i>a<sub>2</sub></i>, we actually find P(5, 3). Except, to get P(5, 3) from P(5) we need to ‘skip’ a few permutations.</p>
+<table style="border:1px solid;border-collapse:collapse;" cellspacing="0" cellpadding="0">
+<caption>Table 4: P(5) with P(5, 3) highlighted</caption>
+<colgroup><col width="66">
+<col width="44">
+<col width="44">
+<col width="44">
+<col width="44">
+<col width="44">
+</colgroup><tbody><tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;"><i>P(5)<sub>i</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;"><i>a<sub>0</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;"><i>a<sub>1</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;"><i>a<sub>2</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>3</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">5</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">6</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">7</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">8</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">9</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">10</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">⋮</td>
+<td colspan="5" style="border:1px solid;text-align:center;width:1cm;padding:4px;">⋮</td>
+</tr>
+</tbody></table>
+<p>Basically, we can safely ‘skip’ all permutations in P(5) that don’t permute the first 3 positions. For purposes of discussion, we designate the <i>k</i><sup>th</sup> or 3<sup>rd</sup> position, <i>a<sub>2</sub></i> as the ‘edge’.</p>
+<table style="border:1px solid;border-collapse:collapse;" cellspacing="0" cellpadding="0">
+<caption>Table 5: P(5) where <i>a<sub>0</sub></i>, <i>a<sub>1</sub></i> and <i>a<sub>2</sub></i> change. The 3<sup>rd</sup> position, or <i>a<sub>2</sub></i> is the ‘edge’</caption>
+<colgroup><col width="66">
+<col width="44">
+<col width="44">
+<col width="44">
+<col width="44">
+<col width="44">
+</colgroup><tbody><tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>P<sub>i</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;"><i>a<sub>0</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;"><i>a<sub>1</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;"><i>a<sub>2</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>3</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">6</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">8</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">10</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">12</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">14</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">16</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">18</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">20</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">⋮</td>
+<td colspan="5" style="border:1px solid;text-align:center;width:1cm;padding:4px;">⋮</td>
+</tr>
+</tbody></table>
+<p>Another way to look at this is that in generating P(n) using Johnson’s SEPA, we look for the rightmost ascent. In P(n, k) generation, we’re only interested in ascents at the ‘edge’ or to the left of the ‘edge’.</p>
+<p>We first assume that the edge contains our ‘ascent’ and look for the next higher number to the right of the edge.</p>
+<table style="border:1px solid;border-collapse:collapse;" cellspacing="0" cellpadding="0">
+<caption>Table 6: P(5) → P(5, 3), showing the edge about to be swapped with the next higher number</caption>
+<colgroup><col width="66">
+<col width="44">
+<col width="44">
+<col width="44">
+<col width="44">
+<col width="44">
+</colgroup><tbody><tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;"><i>P<sub>i</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>0</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>1</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><i>a<sub>2</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>3</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td rowspan="12" style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">⋮</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">4</span></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">1</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">4</span></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">1</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">4</span></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">1</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+</tr>
+<tr>
+<td colspan="5" style="border:1px solid;text-align:center;width:1cm;padding:4px;">⋮</td>
+</tr>
+</tbody></table>
+<p>If all numbers to the right of the edge are smaller, then we know that the ascent must be to the left of the edge.</p>
+<p>However, unlike with regular P(n) generation, at this point all numbers to the right of the edge will be in ascending order. We know this since we began with all numbers in ascending order, and all our operations at this point simply swap the value at the edge with the next higher number.</p>
+<p>Fortunately, by simply reversing everything to the right of the edge we return to a state similar to P(n) where all values to the right of the actual ascent are in descending order. We can now proceed as with the regular SEPA.</p>
+<table style="border:1px solid;border-collapse:collapse;" cellspacing="0" cellpadding="0">
+<caption>Table 7: P(5, 3), showing the edge about to be swapped, or, after reversal, the actual ascent and values to swap (as in SEPA)</caption>
+<colgroup><col width="66">
+<col width="44">
+<col width="44">
+<col width="44">
+<col width="44">
+<col width="44">
+</colgroup><tbody><tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;"><i>P<sub>i</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>0</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>1</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>2</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>3</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td rowspan="12" style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">⋮</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">4</span></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">1</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">1</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">4</span></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">1</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">4</span></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">4</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">1</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">0</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">1</span></td>
+</tr>
+<tr>
+<td colspan="5" style="border:1px solid;text-align:center;width:1cm;padding:4px;">⋮</td>
+</tr>
+</tbody></table>
+<h2 style="margin-top:1em;"><a name="_A_Simple__Efficient_Algorithm_for_Generating_P_n__k_"></a>A Simple, Efficient Algorithm for Generating P(n, k)</h2>
+<p>This leads us to the adapted algorithm for generating permutations of <i>n</i> items taken <i>k</i> at a time, in lexicographic order.</p>
+<blockquote><pre style="line-height:95%;">def <i>a</i> = { 0, 1, 2 … (n - 1) }
+def <i>edge</i> = <i>k</i> - 1
+
+// find <i>j</i> in (<i>k</i>…<i>n</i>-1) where <i>a<sub>j</sub></i> &gt; <i>a<sub>edge</sub></i>
+<i>j</i> = <i>k</i>
+while <i>j</i> &lt; <i>n</i> and <i>a<sub>edge</sub></i> &gt;= <i>a<sub>j</sub></i>,
+    ++<i>j</i>
+
+if <i>j</i> &lt; <i>n</i> {
+    swap <i>a<sub>edge</sub></i>, <i>a<sub>j</sub></i>
+} else {
+    reverse <i>a<sub>k</sub></i> to <i>a<sub>n-1</sub></i>
+
+    // find rightmost ascent to left of edge
+    <i>i</i> = <i>edge</i> - 1
+    while <i>i</i> &gt;= 0 and <i>a<sub>i</sub></i> &gt;= <i>a<sub>i</sub></i>+1,
+          --<i>i</i>
+
+    if <i>i</i> &lt; 0,
+          // no more permutations
+          return 0
+
+    // find <i>j</i> in (<i>n</i>-1…<i>i</i>+1) where <i>a<sub>j</sub> </i>&gt; <i>a<sub>i</sub></i>
+    <i>j</i> = <i>n</i> - 1
+    while <i>j</i> &gt; <i>i</i> and <i>a<sub>i</sub></i> &gt;= <i>a<sub>j</sub></i>
+          --<i>j</i>
+
+    swap <i>a<sub>i</sub></i>, <i>a<sub>j</sub></i>
+    reverse <i>a<sub>i+1</sub></i> to <i>a<sub>n-1</sub></i>
+}
+
+output <i>a<sub>0</sub></i>, <i>a<sub>1</sub></i> … <i>a<sub>k-1</sub></i>
+</pre>
+</blockquote>
+<h2><a name="_SEP_n_k__Algorithm_Illustrated"></a>SEP(n,k) Algorithm Illustrated</h2>
+<p>To show how the algorithm works, let’s step through the major operations showing the state of the array <i>a</i> at each step.</p>
+<table style="border:1px solid;border-collapse:collapse;" cellspacing="0" cellpadding="0">
+<caption>Table 8: P(5, 3). <i>a<sub>2</sub></i> is the ‘edge’. Red values are about to be swapped, yellow cells are about to be reversed.</caption>
+<colgroup><col width="66">
+<col width="44">
+<col width="44">
+<col width="44">
+<col width="44">
+<col width="44">
+<col width="175">
+</colgroup><tbody><tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>P<sub>i</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>0</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>1</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><i>a<sub>2</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>3</sub></i></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><i>a<sub>4</sub></i></td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">Step</td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">swap <i>a<sub>2</sub></i>, <i>a<sub>3</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">4</span></td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">swap <i>a<sub>2</sub></i>, <i>a<sub>4</sub></i></td>
+</tr>
+<tr>
+<td rowspan="3" style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">reverse <i>a<sub>3..4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">1</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">swap <i>a<sub>1</sub></i>, <i>a<sub>4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">reverse <i>a<sub>2..4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">1</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">swap <i>a<sub>2</sub></i>, <i>a<sub>3</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">4</span></td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">swap <i>a<sub>2</sub></i>, <i>a<sub>4</sub></i></td>
+</tr>
+<tr>
+<td rowspan="3" style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">5</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">reverse <i>a<sub>3..4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">swap <i>a<sub>1</sub></i>, <i>a<sub>3</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">reverse <i>a<sub>2..4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">6</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">1</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">swap <i>a<sub>2</sub></i>, <i>a<sub>3</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">7</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">4</span></td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">swap <i>a<sub>2</sub></i>, <i>a<sub>4</sub></i></td>
+</tr>
+<tr>
+<td rowspan="3" style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">8</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">reverse <i>a<sub>3..4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">4</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">swap <i>a<sub>1</sub></i>, <i>a<sub>2</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">reverse <i>a<sub>2..4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">9</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">1</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">swap <i>a<sub>2</sub></i>, <i>a<sub>3</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">10</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">swap <i>a<sub>2</sub></i>, <i>a<sub>4</sub></i></td>
+</tr>
+<tr>
+<td rowspan="3" style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">11</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">reverse <i>a<sub>3..4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">0</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">1</span></td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">swap <i>a<sub>0</sub></i>, <i>a<sub>4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">3</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">2</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ffffcc;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">reverse <i>a<sub>1..4</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1.5cm;padding:4px;">12</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">1</td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">0</td>
+<td style="border:1px solid;text-align:center;width:1cm;background-color:#ccccff;padding:4px;"><span style="color:red;">2</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;"><span style="color:red;">3</span></td>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">4</td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">swap <i>a<sub>2</sub></i>, <i>a<sub>3</sub></i></td>
+</tr>
+<tr>
+<td style="border:1px solid;text-align:center;width:1cm;padding:4px;">⋮</td>
+<td colspan="5" style="border:1px solid;text-align:center;width:5cm;padding:4px;">⋮</td>
+<td style="border:1px solid;text-align:center;width:4cm;padding:4px;">⋮</td>
+</tr>
+</tbody></table>
+<h2 style="margin-top:1em;">Java Implementation</h2>
+<p>A Java implementation of this algorithm is provided as <code><a href="http://github.com/AlistairIsrael/jcombinatorics/blob/master/src/main/java/jcombinatorics/permutations/SepaPnkIterator.java" sl-processed="1">SepaPnkIterator</a></code>. It is part of <code><a href="http://wiki.github.com/AlistairIsrael/jcombinatorics" sl-processed="1">jcombinatorics</a></code>, the <a>Java Combinatorics Library</a> up on GitHub and released under the MIT license.</p>
+<p>Ad-hoc performance testing was conducted on a 2.4 GHz Intel Core 2 Duo with 2GB RAM running OS X 10.5.8 and Apple’s Java 1.6.0_15. Results revealed that Johnson’s SEPA can generate all 479,001,600 permutations of P(12) at over to 38,000 permutations/ms. The above algorithm computes P(12,12) at around 32,000 permutations/ms which makes it nearly 85% as fast as SEPA P(<i>n</i>).</p>
+<p>This article is also available for <a href="https://alistairisrael.files.wordpress.com/2009/09/sepnka1.pdf" sl-processed="1">download as a PDF</a>.</p>
+<p>I’d love to hear from others if you have any thoughts to share on a formal proof of this algorithm, or of analysis of its running time. Meanwhile, Enjoy!</p>
+
+
+
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpa script[src*='virool.com']").length > 0 || jQuery(".wpa script[src*='shareth.ru']").length > 0 || jQuery(".wpa iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpa iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpa .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpa' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//pixel.wp.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+
+			</div>
+
+	
+
+</div>
+		
+			
+	
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+	
+
+		
+
+
+
+	
+
+	
+		
+				
+				
+		
+		
+
+
+
+
+
+	
+	
+
+
+
+</body></html>
